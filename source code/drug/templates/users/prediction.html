@@ -1,0 +1,119 @@
+{% extends 'users/userbase.html' %}
+{% load static %} 
+{% block contents %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drug Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 30px;
+            background: #e6ffe6;
+            padding: 20px;
+            border: 1px solid #b3ffb3;
+            border-radius: 5px;
+        }
+
+        .result h3 {
+            color: #2e7d32;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>AI-Driven Drug Recommendation</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="prescribed_for">Prescribed For (Condition):</label>
+        <input type="text" name="prescribed_for" id="prescribed_for" required>
+
+        <label for="drug_review">Drug Review (Description):</label>
+        <textarea name="drug_review" id="drug_review" rows="5" required></textarea>
+
+        <input type="submit" value="Predict Recommended Drug">
+    </form>
+
+    {% if predicted_drug %}
+    <div class="result">
+        <h3>Recommended Drug:</h3>
+        <p><strong>{{ predicted_drug }}</strong></p>
+
+        <p><strong>Condition:</strong> {{ prescribed_for }}</p>
+        <p><strong>Review:</strong> "{{ drug_review }}"</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="footer">
+    &copy; 2025 AI Health Recommender System
+</div>
+
+</body>
+</html>
+{% endblock %}

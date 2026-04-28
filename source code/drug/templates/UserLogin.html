@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+    <div class="content" style="background-image:url(https://img.freepik.com/free-vector/man-getting-award-writing_74855-5891.jpg?t=st=1736251213~exp=1736254813~hmac=871b5c4002143ecfe0f0bf7ab3a4ea45cb8125f574cb42f181b7a17dadb74d6b&w=740)">
+        <br><br>
+        <div class="container" style="max-width: 400px;margin-top:100px;"> <!-- Set max-width for the login form -->
+            <div class="form-container" style="background-color:rgb(163, 198, 198)">
+                <h2 class="text-center" >User Login Form</h2>
+                
+                <form action="{% url 'UserLoginCheck' %}" method="POST" class="text-primary" style="width:100%">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="loginid" required placeholder="Enter Login ID">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="pswd" required placeholder="Enter Password">
+                    </div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                        <button class="btn btn-secondary btn-block" type="reset">Reset</button>
+                    </div>
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-success text-center">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
